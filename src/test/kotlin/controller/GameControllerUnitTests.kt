@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.mock.web.MockHttpServletRequest
 
 
 class GameControllerUnitTests {
@@ -27,10 +28,15 @@ class GameControllerUnitTests {
      */
     @Test
     fun testMessage() {
+        //mocked request to invoke correctly the controllers
+        var request : MockHttpServletRequest = MockHttpServletRequest()
+        //this map will store the variables to be passed by the controller to
+        //the template
         val map = mutableMapOf<String,Any>()
         if (::controller.isInitialized) {
             var lview =
-            listOf(controller.getMaxScore(map),controller.postMaxScore(map,MOCK_SCORE))
+                listOf(controller.getMaxScore(map,request),
+                controller.postMaxScore(map, request, MOCK_SCORE))
             for (view in lview) {
                 assertThat(view).isEqualTo("game")
                 assertThat(map.containsKey("maxScore")).isTrue

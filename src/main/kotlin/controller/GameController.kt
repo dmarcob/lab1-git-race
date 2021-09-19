@@ -15,8 +15,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.core.StringRedisTemplate
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 class GameController(
@@ -25,15 +25,19 @@ class GameController(
     
     /**
      *  This endpoint retrieves the maximum score made by a player behind an @IP.
-     *  If its the first time playing it returns a message instead.
+     *  If its the player first time, it will returns a message instead.
      */
     @GetMapping("/game")
-    fun getMaxScore(model: MutableMap<String,Any>): String {
-        var score : String? = sharedData.opsForValue().get("127.0.0.1")
-        if (score == null) {
+    fun getMaxScore(model: MutableMap<String,Any>, request : HttpServletRequest):String {
+        var ip :String = request.getRemoteAddr()
+        //Retrieves the max score of user with @IP = ip, from Redis.
+        var maxScore : String? = sharedData.opsForValue().get(ip)
+
+        if (maxScore == null) {
+            //Case its the player first time
             model["maxScore"] = "You haven't played yet"
         } else {
-            model["maxScore"] = score
+            model["maxScore"] = maxScore
         }
 
         return "game"
@@ -44,8 +48,11 @@ class GameController(
      *  updates it only if its a new record.
      */
     @PostMapping("/game")
-    fun postMaxScore(model: MutableMap<String, Any>, @RequestParam score:String): String {
-        var maxScore : String? = sharedData.opsForValue().get("127.0.0.1")
+    fun postMaxScore(model: MutableMap<String, Any>, request:
+    HttpServletRequest, @RequestParam score:String): String {
+        var ip :String = request.getRemoteAddr()
+        var maxScore : String? = sharedData.opsForValue().get(ip)
+
         if(maxScore == null || score.toInt() > maxScore.toInt()) {
             //First time scoring or new record
             sharedData.opsForValue().set("127.0.0.1", score)
