@@ -1,11 +1,11 @@
 /*
  * File: GameController
  * Author: Diego Marco 
- * Coms: This controller manages the score achived by a player of an html game.
+ * Coms: This controller manages the score achived by a player of the html game.
  *       To store data it uses Redis as a high-scalable NoSQL key-value database.
- *       
- *       key - value format: <ip:String> <score:String>
- * 
+ *
+ *       You must run "$docker-compose -f redis.yml up" in order to have redis seted up
+ *       before you access this endpoint. 
 */
 
 package es.unizar.webeng.hello.controller
