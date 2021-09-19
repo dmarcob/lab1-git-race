@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Game</title>
+</head>
+<body>
+
+
+    <p> Max score achieved: </p>
+    <p th:text="${maxScore}"> max score </p>
+
+    <!-- button to submit the name and score of the partaker-->
+     <form id="form" action="/game" method="post">
+        <label for="score">score</label>
+        <input type="text" id="score" name="score"><br><br>
+        <button type="submit" formmethod="post">Submit</button>
+    </form> 
+
+
+
+
+  <script>
+
+  </script>
+
+</body>
+</html>
