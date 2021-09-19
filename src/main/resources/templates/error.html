@@ -1,0 +1,24 @@
+<!-- Error page. This file must be under resources/templates for Spring MVC to detecting it automatically -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Error</title>
+    <link
+      th:href="@{/webjars/bootstrap/5.1.0/css/bootstrap.min.css}"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="px-4 py-5 my-5 text-center">
+      <img class="d-block mx-auto mb-4" src="/assets/error.png" alt="" />
+      <h1>Algo ha salido mal!</h1>
+      <h2>Si no has sido tu estamos trabajando en ello 🙃</h2>
+      <!-- [error] variable is given by Spring to display what kind of error it is -->
+      <p class="lead mb-4" th:text="${error}">Error!</p>
+      <a class="btn btn-primary" href="/" role="button">Volver</a>
+    </div>
+  </body>
+</html>
