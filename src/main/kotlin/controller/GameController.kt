@@ -4,19 +4,18 @@
  * Coms: This controller manages the score achived by a player of the html game.
  *       To store data it uses Redis as a high-scalable NoSQL key-value database.
  *
- *       You must run "$docker-compose -f redis.yml up" in order to have redis seted up
+ *       You must run `docker-compose -f redis.yml up` in order to have redis seted up
  *       before you access this endpoint. 
 */
 
 package es.unizar.webeng.hello.controller
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.data.redis.core.StringRedisTemplate
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 class GameController(
@@ -29,9 +28,9 @@ class GameController(
      */
     @GetMapping("/game")
     fun getMaxScore(model: MutableMap<String,Any>, request : HttpServletRequest):String {
-        var ip :String = request.getRemoteAddr()
+        val ip :String = request.remoteAddr
         //Retrieves the max score of user with @IP = ip, from Redis.
-        var maxScore : String? = sharedData.opsForValue().get(ip)
+        val maxScore : String? = sharedData.opsForValue().get(ip)
 
         if (maxScore == null) {
             //Case its the player first time
@@ -50,8 +49,8 @@ class GameController(
     @PostMapping("/game")
     fun postMaxScore(model: MutableMap<String, Any>, request:
     HttpServletRequest, @RequestParam score:String): String {
-        var ip :String = request.getRemoteAddr()
-        var maxScore : String? = sharedData.opsForValue().get(ip)
+        val ip :String = request.remoteAddr
+        val maxScore : String? = sharedData.opsForValue().get(ip)
 
         if(maxScore == null || score.toInt() > maxScore.toInt()) {
             //First time scoring or new record
