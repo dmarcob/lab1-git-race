@@ -54,7 +54,7 @@ class GameController(
 
         if(maxScore == null || score.toInt() > maxScore.toInt()) {
             //First time scoring or new record
-            sharedData.opsForValue().set("127.0.0.1", score)
+            sharedData.opsForValue().set(ip, score)
             model["maxScore"] = score
         } else {
             //The new score wasn't enough to beat maxScore
