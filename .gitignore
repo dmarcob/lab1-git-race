@@ -3,6 +3,7 @@
 *.iml
 out
 build/
+bin/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -18,3 +19,10 @@ gradle-app.setting
 
 # Ignore macos files
 .DS_Store
+
+# Ignore other files
+.classpath
+.project
+.settings/org.eclipse.buildship.core.prefs
+.vscode/settings.json
+.project

@@ -1,0 +1,7 @@
+appName: demo-minikube
+namespace: default
+appVersion: latest
+replicaCount: 1
+image:
+  registry: adrigaarcia
+  pullPolicy: Never
