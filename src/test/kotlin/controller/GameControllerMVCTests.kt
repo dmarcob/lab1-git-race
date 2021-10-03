@@ -18,7 +18,7 @@ import org.mockito.BDDMockito.verify
 import org.mockito.BDDMockito.reset
 
 @WebMvcTest(GameController::class)
-class GameControllerUnitTests {
+class GameControllerMVCTests {
     @Autowired
     private lateinit var controller: GameController
 
@@ -43,7 +43,7 @@ class GameControllerUnitTests {
     fun testGame() {
 
         // The request is faked with a mocked IP
-        val request: MockHttpServletRequest = MockHttpServletRequest()
+        val request = MockHttpServletRequest()
         request.remoteAddr = IP
 
         // this map will store the variables to be passed by the 
